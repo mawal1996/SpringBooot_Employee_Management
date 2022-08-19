@@ -146,6 +146,16 @@ public class EmployeeServiceTest {
     }
 
     @Test
+    public void getEmployeeBySalaryEqualToTest(){
+        Salary salary=new Salary(1,400000,20000,30000,new Employee());
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),salary,new Dept());
+        when(employeeRepository.getEmployeeBySalary()).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getEmployeeBySalary();
+        assertThat(employeeList).isNotNull();
+        assertThat(employeeList.size()).isEqualTo(0);
+        assertEquals(0,employeeList.size());
+    }
+    @Test
     public void getEmployeeByEqualsMethodTest_equalToAdmin(){
         Dept dept=new Dept(1,"Admin","Administration",new Employee());
         Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),dept);
