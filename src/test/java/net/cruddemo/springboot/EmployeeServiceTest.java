@@ -147,6 +147,8 @@ public class EmployeeServiceTest {
        verify(employeeRepository).findByFirstName(anyString());
     }
 
+  //We used assertion  for predict the actual value and expected value
+
     @Test
     public void getEmployeeBySalaryGreaterThanTest(){
         Salary salary=new Salary(1,10000,500000,30000,new Employee());
