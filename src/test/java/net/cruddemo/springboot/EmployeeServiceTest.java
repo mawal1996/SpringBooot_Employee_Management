@@ -116,6 +116,30 @@ public class EmployeeServiceTest {
         assertEquals(1,employeeList.size());
     }
 
+    @Test
+    public void getEmployeeByDesignationIsNotTest(){
+         Employee employee=new Employee();
+       /* Employee employee=Employee.builder()
+                .id(1L)
+                .age(21)
+                .city("Pune")
+                .designation("Level1")
+                .deskId("c21")
+                .emailId("p@gmail.com")
+                .experience(2)
+                .firstName("Pradnya")
+                .lastName("Mawal")
+                .mobileNo("876432124")
+                .stat("Maharashtra")
+                .build();*/
+
+        when(employeeRepository.getEmployeeByDesignation()).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getEmployeeByDesignation();
+        assertThat(employeeList).isNotNull();
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
 
     @Test
     public void findByFirstName(){
