@@ -13,6 +13,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
 
         //For testing
+
        /* List<Employee> getAllEmployeeByFindAllMethod();*/
 
     //jpaRepository takes all crud methods

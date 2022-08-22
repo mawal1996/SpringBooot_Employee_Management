@@ -15,7 +15,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+/*import org.mockito.Captor;
+import org.mockito.Mockito;*/
 
 
 public class EmployeeServiceTest {
@@ -25,6 +29,13 @@ public class EmployeeServiceTest {
 
     private final EmpService empService =new EmpService(employeeRepository);
 
+    /*@Captor
+    private ArgumentCaptor<Employee> employeeArgumentCaptor;*/
+
+  /*  @Captor
+    private ArgumentCaptor<List<Employee>> argumentCaptor;
+
+*/
     //private Employee employee;
 
     /*@BeforeAll
@@ -93,6 +104,33 @@ public class EmployeeServiceTest {
     }
 
     @Test
+    public void getEmployeeByCityTestUsingArgumentCaptor(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.getEmployeeByCity(anyString())).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getEmployeeByCity(anyString());
+        assertEquals(1,employeeList.size());
+
+        ArgumentCaptor<Employee> argumentCaptor=ArgumentCaptor.forClass(Employee.class);
+        verify(employeeRepository).getEmployeeByCity(String.valueOf(argumentCaptor.capture()));
+        List<Employee> captured=  argumentCaptor.getAllValues();
+
+
+        assertEquals(1,captured.size());
+       /* assertEquals("Pradnya",captured.get(1));*/
+    }
+    @Test
+    public void getEmployeeByExpTestUsingArgumentCaptor(){
+        ArgumentCaptor<Employee> argumentCaptor=ArgumentCaptor.forClass(Employee.class);
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        String first_name="Pradnya";
+        when(employeeRepository.getEmployeeByExp(first_name)).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getEmployeeByExp(first_name);
+        verify(employeeRepository).getEmployeeByExp(String.valueOf(argumentCaptor.capture()));
+        List<Employee> employeeList1=argumentCaptor.getAllValues();
+        assertEquals(1,employeeList1.size());
+    }
+
+    @Test
     public void getEmployeeByDesignationTest(){
        /* Employee employee=new Employee();*/
         Employee employee=Employee.builder()
@@ -119,19 +157,7 @@ public class EmployeeServiceTest {
     @Test
     public void getEmployeeByDesignationIsNotTest(){
          Employee employee=new Employee();
-       /* Employee employee=Employee.builder()
-                .id(1L)
-                .age(21)
-                .city("Pune")
-                .designation("Level1")
-                .deskId("c21")
-                .emailId("p@gmail.com")
-                .experience(2)
-                .firstName("Pradnya")
-                .lastName("Mawal")
-                .mobileNo("876432124")
-                .stat("Maharashtra")
-                .build();*/
+
 
         when(employeeRepository.getEmployeeByDesignation()).thenReturn(List.of(employee));
         List<Employee> employeeList=empService.getEmployeeByDesignation();
