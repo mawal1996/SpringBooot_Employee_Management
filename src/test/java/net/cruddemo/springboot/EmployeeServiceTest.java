@@ -230,6 +230,124 @@ public class EmployeeServiceTest {
     }
 
     @Test
+    public void findByFirstNameOrDeskIdTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.findByFirstNameOrDeskId("Pradnya","c21")).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.findByFirstNameOrDeskId("Pradnya","c21");
+
+    }
+
+    @Test
+    public void findByAgeBetweenTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.findByAgeBetween(20,24)).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.findByAgeBetween(20,24);
+        assertThat(employeeList.size()).isGreaterThan(0);
+        assertEquals(1,employeeList.size());
+
+    }
+
+    @Test
+    public void findByAgeGreaterThanTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.findByAgeGreaterThan(20)).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.findByAgeGreaterThan(20);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+    @Test
+    public void findByAgeLessThanTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.findByAgeLessThan(25)).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.findByAgeLessThan(25);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+    @Test
+    public void findByfirstNameLikeTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.findByfirstNameLike("Pradnya")).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.findByfirstNameLike("Pradnya");
+        assertThat(employeeList.size()).isGreaterThan(0);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+    @Test
+    public void getAllEmployeeByOneToOneTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.getAllEmployeeByOneToOne("Level1")).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getAllEmployeeByOneToOne("Level1");
+        assertThat(employeeList.size()).isGreaterThan(0);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+    @Test
+    public void getAllEmployeeBySalaryTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.getAllEmployeeBySalary("40000")).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getAllEmployeeBySalary("40000");
+        assertThat(employeeList.size()).isGreaterThan(0);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+    @Test
+    public void getAllTableEmployeeTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.getAllTableEmployee()).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getAllTableEmployee();
+        assertThat(employeeList.size()).isGreaterThan(0);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+
+    @Test
+    public void getAllTableEmployeeTest1(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.getEmployeeByFirstAndLastName("Pradnya","Mawal")).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getEmployeeByFirstAndLastName("Pradnya","Mawal");
+        assertThat(employeeList.size()).isGreaterThan(0);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+    @Test
+    public void getEployeeByAgeAndCityTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.getEployeeByAgeAndCity(21,"Pune")).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getEployeeByAgeAndCity(21,"Pune");
+        assertThat(employeeList.size()).isGreaterThan(0);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+    @Test
+    public void getEmployeeByAgeAndDesignationTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.getEmployeeByAgeAndDesignation(21,"Level1")).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getEmployeeByAgeAndDesignation(21,"Level1");
+        assertThat(employeeList.size()).isGreaterThan(0);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+    @Test
+    public void getEmployeeByExpAndDeskNoTest(){
+        Employee employee=new Employee(11,"Pradnya","Mawal","p@gmail.com","Level1",2,21,"Pune","Maharashtra","C21","8446872910",new Designation(),new Salary(),new Dept());
+        when(employeeRepository.getEmployeeByExpAndDeskNo(2,"c21")).thenReturn(List.of(employee));
+        List<Employee> employeeList=empService.getEmployeeByExpAndDeskNo(2,"c21");
+        assertThat(employeeList.size()).isGreaterThan(0);
+        assertThat(employeeList.size()).isEqualTo(1);
+        assertEquals(1,employeeList.size());
+    }
+
+
+    @Test
     public void testSumTwoPositiveNumber(){
         int sum = empService.sum(4, 6);
         assertEquals(10,sum);

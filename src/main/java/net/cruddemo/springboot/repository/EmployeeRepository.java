@@ -10,8 +10,6 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
-
-
         //For testing
 
        /* List<Employee> getAllEmployeeByFindAllMethod();*/
@@ -75,10 +73,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
         @Query(value = "select e.* from employees e",nativeQuery = true)
         List<Employee> getAllTableEmployee();
 
-
-      /*  @Query(value = "select e.mobile,e.first_Name,d.dept_name,t.desination_details,s.actual,s.Bonus from employees e join dept d on e.fk_dept_id=d.deptid Join designation t on e.fk_designation_idd=t.designation_idd join salary s on e.fk_pay_slip_no=s.pay_slip_no ",nativeQuery = true)
-        List<CustomDTO> getAllTableEmployee1();
-*/
 
         @Query(value = "select e.* from employees e join designation d on d.designation_idd=e.fk_designation_idd where d.desination_details=?1",nativeQuery = true)
         List<Employee> getAllEmployeeByOneToOne(String desigDetails);

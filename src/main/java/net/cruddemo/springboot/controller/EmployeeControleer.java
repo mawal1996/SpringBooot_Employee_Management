@@ -9,7 +9,6 @@ import net.cruddemo.springboot.model.Employee;
 import net.cruddemo.springboot.repository.EmployeeRepository;
 
 import net.cruddemo.springboot.service.EmpService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +24,11 @@ public class EmployeeControleer {
 
    private final EmployeeMapper employeeMapper;
 
+    private final EmployeeRepository employeeRepository;
+
+   /* @Autowired
+    private EmployeeRepository employeeRepository;*/
+
 
    /* @GetMapping("/empdetails")
      public List<EmpDTO>  getAllEmployee() {
@@ -35,7 +39,6 @@ public class EmployeeControleer {
     public List<Employee> getAllEmplyeeBy(){
         return empService.getAllEmplyeeBy();
     }
-
     @GetMapping("/getempbycity/{city}")
     public ResponseEntity<List<Employee>> getEmployeeByCity(@PathVariable String city){
         List<Employee> employee=empService.getEmployeeByCity(city);
@@ -89,7 +92,7 @@ public class EmployeeControleer {
    }
 
    @GetMapping("findByDesignation/{designation}")
-    public ResponseEntity<List<Employee>> findByDesignation(@PathVariable String designation){
+    public ResponseEntity<List<Employee>> findByDesignation(@PathVariable("designation") String designation){
         List<Employee> employees=empService.findByDesignation(designation);
         return ResponseEntity.ok(employees);
     }
@@ -130,17 +133,10 @@ public class EmployeeControleer {
     }
 
     //Finder Method by Like query
-    @GetMapping("findByfirstNameLike/firstName")
+   /* @GetMapping("findByfirstNameLike/firstName")
     public ResponseEntity<List<Employee>> findByfirstNameLike(@RequestParam String firstName){
         List<Employee> employees=empService.findByfirstNameLike("%"+firstName+"%");
         return ResponseEntity.ok(employees);
-    }
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-   /* @GetMapping
-    public List<Employee> getAllEmployees(){
-        return employeeRepository.findAll();
     }*/
 
     @PostMapping
@@ -171,11 +167,9 @@ public class EmployeeControleer {
 
     //build delete employee REST API
     @DeleteMapping("{id}")
-    public  ResponseEntity<HttpStatus> deleteEmployee(@PathVariable long id){
-        Employee employee = employeeRepository.findById(id).orElseThrow(() ->new ResourceNotFoundException("Employee not exist with id" + id));
-
+    public  ResponseEntity<HttpStatus> deleteEmployee(Employee employee){
+      //  Employee employee = employeeRepository.findById(id).orElseThrow(() ->new ResourceNotFoundException("Employee not exist with id" + id));
         employeeRepository.delete(employee);
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
@@ -203,13 +197,6 @@ public class EmployeeControleer {
 
     }
 
-   //Custom DTO
-
-   /* @GetMapping("/getAllCustomDto")
-    public List<CustomDTO> getAllCustomDto(){
-        return empService.getAllCustomDto();
-    }*/
-
     @PostMapping("/saveEmployeeWithDesignation")
     public ResponseEntity<String> saveEmployeeWithDesignation(@RequestBody List<Employee> employees){
         employeeRepository.saveAll(employees);
@@ -229,31 +216,17 @@ public class EmployeeControleer {
         return ResponseEntity.ok(employees);
     }
 
-
     @GetMapping("/getAllTableEmployee")
     public ResponseEntity<List<Employee>> getAllTableEmployee(){
         List<Employee> employees=empService.getAllTableEmployee();
         return ResponseEntity.ok(employees);
     }
 
-   /* @GetMapping("/getAllTableEmployee1")
-    public ResponseEntity<List<CustomDTO>> getAllTableEmployee1(){
-        List<CustomDTO> employees=empService.getAllTableEmployee1();
-        return ResponseEntity.ok(employees);
-    }*/
-
     @GetMapping("/findCustomDto")
     public  ResponseEntity<List<CustomDTO>> findCustomDto(){
         List<CustomDTO> customDTOS =empService.findCustomDto();
         return ResponseEntity.ok(customDTOS);
     }
-
-
-   /* //For testing Purpose
-    @GetMapping("/getAllEmployeeByFindAllMethod")
-    public List<Employee> getAllEmployeeByFindAllMethod(){
-      return employeeRepository.findAll();
-    }*/
 
     @GetMapping("/getEmployeeBySalary")
     public List<Employee> getEmployeeBySalary(){
@@ -264,7 +237,5 @@ public class EmployeeControleer {
     public List<Employee> getEmployeeByEqualsMethod(){
         return empService.getEmployeeByEqualsMethod();
     }
-
-
 
 }
