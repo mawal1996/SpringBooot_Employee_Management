@@ -36,7 +36,6 @@ public class EmpService {
     }
 
     public List<Employee> getEmployeeByExp(String firstName){
-
         return employeeRepository.getEmployeeByExp(firstName);
     }
 
